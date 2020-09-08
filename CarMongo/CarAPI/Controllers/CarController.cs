@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CarAPI.Entities;
 using CarAPI.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace CarAPI.Controllers
@@ -13,8 +14,8 @@ namespace CarAPI.Controllers
     [ApiController]
     public class CarController : ControllerBase
     {
-        IMongoCarDbContext _db;
-        IMongoCollection<Car> _carCollection;
+        readonly IMongoCarDbContext _db;
+        readonly IMongoCollection<Car> _carCollection;
 
         public CarController(IMongoCarDbContext context)
         {
@@ -29,10 +30,44 @@ namespace CarAPI.Controllers
             return Ok(all.ToList());
         }
 
-        [HttpPost]
-        public ActionResult<Car> Post(Car carIn)
+        [HttpGet("{id:length(24)}")]
+        public async Task<ActionResult<Car>> Get(string id)
         {
-            throw NotImplementedException();
+            var objectId = new ObjectId(id);
+            var filter = Builders<Car>.Filter.Eq("_id", objectId);
+            var oneCar = await _carCollection.FindAsync(filter).Result.FirstOrDefaultAsync();
+            return Ok(oneCar);
+        }
+
+        [HttpPost]
+        public async Task Post(Car carIn)
+        {
+            if (carIn == null)
+                throw new ArgumentNullException(typeof(Car).Name + " object is null");
+            await _carCollection.InsertOneAsync(carIn);
+        }
+
+        [HttpPut("{id:length(24)}")]
+        public ActionResult<Car> Put(string id, Car carIn)
+        {
+            var car = _carCollection.Find<Car>(c => c.Id == id);
+            if (car == null)
+                return NotFound();
+
+            _carCollection.ReplaceOne<Car>(c => c.Id == id, carIn);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id:length(24)}")]
+        public IActionResult Delete(string id)
+        {
+            var car = _carCollection.Find<Car>(c => c.Id == id).FirstOrDefault();
+            if (car == null)
+                return NotFound();
+
+            _carCollection.DeleteOne<Car>(c => c.Id == id);
+            return NoContent();
         }
     }
 }

@@ -32,6 +32,7 @@ namespace CarAPI
                 options.Connection = Configuration.GetSection("MongoSettings:Connection").Value;
                 options.DatabaseName = Configuration.GetSection("MongoSettings:DatabaseName").Value;
              });
+            services.AddSwaggerGen();
 
             services.AddTransient<IMongoCarDbContext, MongoCarDbContext>();
         }
@@ -43,6 +44,11 @@ namespace CarAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c=> {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","My API v1");
+            });
 
             app.UseHttpsRedirection();
 
