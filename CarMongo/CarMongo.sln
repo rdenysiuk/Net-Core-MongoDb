@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarAPI", "CarAPI\CarAPI.csproj", "{94CACFB0-D3F8-4DD7-8D0E-12588FC89058}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAPI", "CarAPI\CarAPI.csproj", "{94CACFB0-D3F8-4DD7-8D0E-12588FC89058}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarEntities", "CarEntities\CarEntities.csproj", "{6C1159A8-542B-4837-834A-96CF7D182B7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDL", "CarDL\CarDL.csproj", "{88742AEC-DFA0-40DC-A9E2-D407B1E23C41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarBL", "CarBL\CarBL.csproj", "{EFC3E215-BD8F-437D-BEF7-7DD2DEDDB067}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{94CACFB0-D3F8-4DD7-8D0E-12588FC89058}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94CACFB0-D3F8-4DD7-8D0E-12588FC89058}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94CACFB0-D3F8-4DD7-8D0E-12588FC89058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C1159A8-542B-4837-834A-96CF7D182B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C1159A8-542B-4837-834A-96CF7D182B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C1159A8-542B-4837-834A-96CF7D182B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C1159A8-542B-4837-834A-96CF7D182B7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88742AEC-DFA0-40DC-A9E2-D407B1E23C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88742AEC-DFA0-40DC-A9E2-D407B1E23C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88742AEC-DFA0-40DC-A9E2-D407B1E23C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88742AEC-DFA0-40DC-A9E2-D407B1E23C41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFC3E215-BD8F-437D-BEF7-7DD2DEDDB067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFC3E215-BD8F-437D-BEF7-7DD2DEDDB067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFC3E215-BD8F-437D-BEF7-7DD2DEDDB067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFC3E215-BD8F-437D-BEF7-7DD2DEDDB067}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

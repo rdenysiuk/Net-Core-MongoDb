@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks;
 using CarAPI.Entities;
 using CarAPI.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace CarAPI.Controllers
@@ -26,16 +26,14 @@ namespace CarAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Car>>> Get()
         {
-            var all = await _carCollection.FindAsync(Builders<Car>.Filter.Empty);
+            var all = await _carCollection.FindAsync(c => true);
             return Ok(all.ToList());
         }
 
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Car>> Get(string id)
         {
-            var objectId = new ObjectId(id);
-            var filter = Builders<Car>.Filter.Eq("_id", objectId);
-            var oneCar = await _carCollection.FindAsync(filter).Result.FirstOrDefaultAsync();
+            var oneCar = await _carCollection.FindAsync(c => c.Id == id).Result.FirstOrDefaultAsync();
             return Ok(oneCar);
         }
 
