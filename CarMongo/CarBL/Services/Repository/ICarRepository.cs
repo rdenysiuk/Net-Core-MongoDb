@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarBL.Services.Repository
 {
-    interface ICarRepository
+    public interface ICarRepository
     {
         Task<List<Car>> GetAll();
 
@@ -15,7 +15,7 @@ namespace CarBL.Services.Repository
 
         Task<string> New(Car carIn);
 
-        Task<long> Edit(Car carIn);
+        Task<UpdateResult> Edit(Car carIn);
 
         Task<DeleteResult> Delete(string id);
     }

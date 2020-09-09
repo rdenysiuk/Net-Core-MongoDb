@@ -13,7 +13,7 @@ namespace CarBL.Interfaces
         
         Task<string> New(Car carIn);
         
-        Task<long> Edit(Car carIn);
+        Task<UpdateResult> Edit(Car carIn);
 
         Task<DeleteResult> Delete(string id);
     }

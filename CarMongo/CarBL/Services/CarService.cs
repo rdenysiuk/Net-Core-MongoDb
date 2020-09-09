@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarBL.Services
 {
-    class CarService : ICarService
+    public class CarService : ICarService
     {
         private readonly ICarRepository _carRepo;
         public CarService(ICarRepository carRepo)
@@ -19,7 +19,7 @@ namespace CarBL.Services
             return _carRepo.Delete(id);
         }
 
-        public async Task<long> Edit(Car carIn)
+        public async Task<UpdateResult> Edit(Car carIn)
         {
             return await _carRepo.Edit(carIn);
         }

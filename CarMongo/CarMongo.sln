@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarAPI", "CarAPI\CarAPI.csproj", "{94CACFB0-D3F8-4DD7-8D0E-12588FC89058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarEntities", "CarEntities\CarEntities.csproj", "{6C1159A8-542B-4837-834A-96CF7D182B7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarEntities", "CarEntities\CarEntities.csproj", "{6C1159A8-542B-4837-834A-96CF7D182B7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDL", "CarDL\CarDL.csproj", "{88742AEC-DFA0-40DC-A9E2-D407B1E23C41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDL", "CarDL\CarDL.csproj", "{88742AEC-DFA0-40DC-A9E2-D407B1E23C41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarBL", "CarBL\CarBL.csproj", "{EFC3E215-BD8F-437D-BEF7-7DD2DEDDB067}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBL", "CarBL\CarBL.csproj", "{EFC3E215-BD8F-437D-BEF7-7DD2DEDDB067}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarXUnitTest", "CarXUnitTest\CarXUnitTest.csproj", "{C72B1134-D2C0-4AC8-9FEB-7BF2C8C4B7D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{EFC3E215-BD8F-437D-BEF7-7DD2DEDDB067}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFC3E215-BD8F-437D-BEF7-7DD2DEDDB067}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFC3E215-BD8F-437D-BEF7-7DD2DEDDB067}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C72B1134-D2C0-4AC8-9FEB-7BF2C8C4B7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C72B1134-D2C0-4AC8-9FEB-7BF2C8C4B7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C72B1134-D2C0-4AC8-9FEB-7BF2C8C4B7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C72B1134-D2C0-4AC8-9FEB-7BF2C8C4B7D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
