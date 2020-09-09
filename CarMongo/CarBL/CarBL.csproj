@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CarDL\CarDL.csproj" />
     <ProjectReference Include="..\CarEntities\CarEntities.csproj" />
   </ItemGroup>
 

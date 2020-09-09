@@ -1,4 +1,5 @@
 ﻿using CarEntities;
+using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,12 +9,12 @@ namespace CarBL.Interfaces
     {
         Task<List<Car>> GetAll();
         
-        Task<string> Get(string id);
+        Task<Car> Get(string id);
         
         Task<string> New(Car carIn);
         
         Task<long> Edit(Car carIn);
 
-        Task<long> Delete(string id);
+        Task<DeleteResult> Delete(string id);
     }
 }

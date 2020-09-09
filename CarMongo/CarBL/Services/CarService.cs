@@ -1,7 +1,7 @@
 ﻿using CarBL.Interfaces;
 using CarBL.Services.Repository;
 using CarEntities;
-using System;
+using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,29 +14,29 @@ namespace CarBL.Services
         {
             _carRepo = carRepo;
         }
-        public Task<long> Delete(string id)
+        public Task<DeleteResult> Delete(string id)
         {
-            throw new NotImplementedException();
+            return _carRepo.Delete(id);
         }
 
-        public Task<long> Edit(Car carIn)
+        public async Task<long> Edit(Car carIn)
         {
-            throw new NotImplementedException();
+            return await _carRepo.Edit(carIn);
         }
 
-        public Task<string> Get(string id)
+        public async Task<Car> Get(string id)
         {
-            throw new NotImplementedException();
+            return await _carRepo.Get(id);
         }
 
-        public Task<List<Car>> GetAll()
+        public async Task<List<Car>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _carRepo.GetAll();
         }
 
-        public Task<string> New(Car carIn)
+        public async Task<string> New(Car carIn)
         {
-            throw new NotImplementedException();
+            return await _carRepo.New(carIn);
         }
     }
 }
