@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks;
-using CarAPI.Entities;
-using CarAPI.Infrastructure;
+using CarEntities;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using CarBL.Interfaces;
 
 namespace CarAPI.Controllers
 {
@@ -14,26 +14,24 @@ namespace CarAPI.Controllers
     [ApiController]
     public class CarController : ControllerBase
     {
-        readonly IMongoCarDbContext _db;
-        readonly IMongoCollection<Car> _carCollection;
+        private readonly ICarService _carService;
 
-        public CarController(IMongoCarDbContext context)
+        public CarController(ICarService carService)
         {
-            _db = context;
-            _carCollection = _db.GetCollection<Car>(typeof(Car).Name);
+            this._carService = carService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Car>>> Get()
         {
-            var all = await _carCollection.FindAsync(c => true);
-            return Ok(all.ToList());
+            return Ok(await _carService.GetAll());
         }
 
-        [HttpGet("{id:length(24)}", Name ="CarGet")]
+        [HttpGet("{id:length(24)}", Name = "CarGet")]
         public async Task<ActionResult<Car>> Get(string id)
         {
-            var oneCar = await _carCollection.FindAsync(c => c.Id == id).Result.FirstOrDefaultAsync();
+
+            var oneCar = await _carService.Get(id);
             if (oneCar != null)
                 return Ok(oneCar);
             else
@@ -45,22 +43,15 @@ namespace CarAPI.Controllers
         {
             if (carIn == null)
                 throw new ArgumentNullException(typeof(Car).Name + " object is null");
-            await _carCollection.InsertOneAsync(carIn);
-            return CreatedAtRoute("CarGet", new {id  = carIn.Id});
+            var carId = await _carService.New(carIn);
+            return CreatedAtRoute("CarGet", new { id = carId });
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<ActionResult> Put(string id,[FromBody] Car carIn)
+        public async Task<ActionResult> Put(string id, [FromBody] Car carIn)
         {
-            /*
-            var car = _carCollection.FindAsync(c => c.Id == id).Result.FirstOrDefaultAsync();
-            if (car == null)
-                return NotFound();*/
-            var filter = Builders<Car>.Filter.Eq(c => c.Id, id);
-            var update = Builders<Car>.Update.Set(u => u.Description, carIn.Description);
-           UpdateResult result  = await _carCollection.UpdateOneAsync(filter, update);
-            //CreatedAtRoute();
-            if (result.ModifiedCount > 0)
+            UpdateResult result = await _carService.Edit(carIn);
+            if (result.IsAcknowledged)
                 return CreatedAtRoute("CarGet", new { id = carIn.Id });
             else
                 return NotFound();
@@ -69,11 +60,10 @@ namespace CarAPI.Controllers
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var car = _carCollection.Find<Car>(c => c.Id == id).FirstOrDefault();
-            if (car == null)
-                return NotFound();
+            var deleteResult = await _carService.Delete(id);
+            if (deleteResult.IsAcknowledged)
+                return NoContent();
 
-            var result = await _carCollection.DeleteOneAsync(c => c.Id == id);
             return NoContent();
         }
     }

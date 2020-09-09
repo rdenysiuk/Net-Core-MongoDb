@@ -10,8 +10,9 @@ namespace CarXUnitTest
 {
     public class DataBaseConnectionTest
     {
+        /*
         private Mock<IOptions<MongoSettings>> _mockOptions;
         private Mock<IMongoDatabase> _mockDb;
-        private Mock<IMongoClient> _mockClient;
+        private Mock<IMongoClient> _mockClient;*/
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarBL.Services.Repository
 {
-    class CarRepository : ICarRepository
+    public class CarRepository : ICarRepository
     {
         private readonly IMongoCarDbContext _db;
         private readonly IMongoCollection<Car> _carCollection;

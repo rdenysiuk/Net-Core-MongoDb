@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CarBL.Interfaces
 {
-    interface ICarService
+    public interface ICarService
     {
         Task<List<Car>> GetAll();
         
