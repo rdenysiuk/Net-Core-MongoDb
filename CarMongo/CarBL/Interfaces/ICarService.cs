@@ -1,4 +1,4 @@
-﻿using CarEntities;
+﻿using CarBL.Models;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,13 +7,13 @@ namespace CarBL.Interfaces
 {
     public interface ICarService
     {
-        Task<List<Car>> GetAll();
+        Task<List<CarModel>> GetAll();
         
-        Task<Car> Get(string id);
+        Task<CarModel> Get(string id);
         
-        Task<string> New(Car carIn);
+        Task<string> New(CarModel carIn);
         
-        Task<UpdateResult> Edit(Car carIn);
+        Task<UpdateResult> Edit(CarModel carIn);
 
         Task<DeleteResult> Delete(string id);
     }

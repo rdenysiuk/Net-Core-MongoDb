@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks;
-using CarEntities;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using CarBL.Interfaces;
+using CarBL.Models;
 
 namespace CarAPI.Controllers
 {
@@ -22,13 +22,13 @@ namespace CarAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Car>>> Get()
+        public async Task<ActionResult<IEnumerable<CarModel>>> Get()
         {
             return Ok(await _carService.GetAll());
         }
 
         [HttpGet("{id:length(24)}", Name = "CarGet")]
-        public async Task<ActionResult<Car>> Get(string id)
+        public async Task<ActionResult<CarModel>> Get(string id)
         {
 
             var oneCar = await _carService.Get(id);
@@ -39,16 +39,16 @@ namespace CarAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Car carIn)
+        public async Task<IActionResult> Post(CarModel carIn)
         {
             if (carIn == null)
-                throw new ArgumentNullException(typeof(Car).Name + " object is null");
+                throw new ArgumentNullException(typeof(CarModel).Name + " object is null");
             var carId = await _carService.New(carIn);
             return CreatedAtRoute("CarGet", new { id = carId });
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<ActionResult> Put(string id, [FromBody] Car carIn)
+        public async Task<ActionResult> Put(string id, [FromBody] CarModel carIn)
         {
             UpdateResult result = await _carService.Edit(carIn);
             if (result.IsAcknowledged)

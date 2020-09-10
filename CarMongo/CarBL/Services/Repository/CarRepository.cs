@@ -1,5 +1,4 @@
 ﻿using CarDL;
-using CarEntities;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -84,5 +83,6 @@ namespace CarBL.Services.Repository
                 throw;
             }
         }
+
     }
 }

@@ -1,6 +1,8 @@
-﻿using CarBL.Interfaces;
+﻿using AutoMapper;
+using CarBL.Interfaces;
+using CarBL.Models;
 using CarBL.Services.Repository;
-using CarEntities;
+using CarDL;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,33 +12,39 @@ namespace CarBL.Services
     public class CarService : ICarService
     {
         private readonly ICarRepository _carRepo;
-        public CarService(ICarRepository carRepo)
+        private readonly IMapper _mapper;
+
+        public CarService(ICarRepository carRepo, IMapper mapper)
         {
             _carRepo = carRepo;
+            _mapper = mapper;
         }
-        public Task<DeleteResult> Delete(string id)
+        public async Task<DeleteResult> Delete(string id)
         {
-            return _carRepo.Delete(id);
-        }
-
-        public async Task<UpdateResult> Edit(Car carIn)
-        {
-            return await _carRepo.Edit(carIn);
+            return await _carRepo.Delete(id);
         }
 
-        public async Task<Car> Get(string id)
+        public async Task<UpdateResult> Edit(CarModel carIn)
         {
-            return await _carRepo.Get(id);
+            return await _carRepo.Edit(_mapper.Map<Car>(carIn));
         }
 
-        public async Task<List<Car>> GetAll()
+        public async Task<CarModel> Get(string id)
         {
-            return await _carRepo.GetAll();
+            var car = await _carRepo.Get(id);
+            return _mapper.Map<CarModel>(car);
         }
 
-        public async Task<string> New(Car carIn)
+        public async Task<List<CarModel>> GetAll()
         {
-            return await _carRepo.New(carIn);
+            return _mapper.Map<List<CarModel>>(await _carRepo.GetAll());
+        }
+
+        public async Task<string> New(CarModel carIn)
+        {
+            var car = _mapper.Map<Car>(carIn);
+            var id = await _carRepo.New(car);
+            return id;
         }
     }
 }
