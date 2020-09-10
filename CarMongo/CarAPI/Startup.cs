@@ -14,6 +14,7 @@ using CarBL.Services;
 using CarBL.Services.Repository;
 using CarDL;
 using AutoMapper;
+using CarBL.Mapping;
 
 namespace CarAPI
 {
@@ -40,7 +41,13 @@ namespace CarAPI
             services.AddScoped<ICarRepository, CarRepository>();
             services.AddScoped<ICarService, CarService>();
 
-            services.AddAutoMapper(typeof(Startup));
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new DtoToEntity());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

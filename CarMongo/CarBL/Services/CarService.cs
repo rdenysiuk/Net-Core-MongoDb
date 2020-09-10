@@ -5,6 +5,7 @@ using CarBL.Services.Repository;
 using CarDL;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarBL.Services
@@ -37,7 +38,9 @@ namespace CarBL.Services
 
         public async Task<List<CarModel>> GetAll()
         {
-            return _mapper.Map<List<CarModel>>(await _carRepo.GetAll());
+            return _mapper.Map<List<Car>,List<CarModel>>( 
+                await _carRepo.GetAll()
+                );
         }
 
         public async Task<string> New(CarModel carIn)

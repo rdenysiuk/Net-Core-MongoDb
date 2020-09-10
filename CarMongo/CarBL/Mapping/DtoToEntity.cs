@@ -8,8 +8,7 @@ namespace CarBL.Mapping
     {
         public DtoToEntity()
         {
-            CreateMap<Car, CarModel>();
-            CreateMap<CarModel, Car>();
+            CreateMap<Car, CarModel>().ReverseMap();
         }
     }
 }

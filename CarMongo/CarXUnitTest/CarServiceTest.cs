@@ -7,9 +7,9 @@ using CarBL.Mapping;
 using Xunit;
 using Moq;
 using CarBL.Services.Repository;
-using CarEntities;
 using AutoMapper;
 using CarBL.Models;
+using CarDL;
 
 namespace CarXUnitTest
 {
