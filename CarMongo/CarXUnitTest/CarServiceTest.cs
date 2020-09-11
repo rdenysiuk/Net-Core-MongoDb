@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 using CarBL.Services;
-using CarBL.Mapping;
 using Xunit;
 using Moq;
-using CarBL.Services.Repository;
 using AutoMapper;
 using CarBL.Models;
-using CarDL;
+using CarDL.Entities;
 
 namespace CarXUnitTest
 {

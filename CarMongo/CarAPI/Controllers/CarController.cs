@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 using CarBL.Interfaces;
 using CarBL.Models;
-using CarBL.Mapping;
 
 namespace CarAPI.Controllers
 {
@@ -42,18 +38,16 @@ namespace CarAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CarModel carIn)
         {
-            if (carIn == null)
-                throw new ArgumentNullException(typeof(CarModel).Name + " object is null");
-            var carId = await _carService.New(carIn);
-            return CreatedAtRoute("CarGet", new { id = carId });
+            await _carService.New(carIn);
+            return Ok();
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<ActionResult> Put(string id, [FromBody] CarModel carIn)
+        public async Task<IActionResult> Put(string id, [FromBody] CarModel carIn)
         {
-            UpdateResult result = await _carService.Edit(carIn);
-            if (result.IsAcknowledged)
-                return CreatedAtRoute("CarGet", new { id = carIn.Id });
+            var updateCount = await _carService.Edit(carIn);
+            if (updateCount > 0)
+                return Ok();
             else
                 return NotFound();
         }
@@ -61,9 +55,9 @@ namespace CarAPI.Controllers
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var deleteResult = await _carService.Delete(id);
-            if (deleteResult.IsAcknowledged)
-                return NoContent();
+            var deleteCount = await _carService.Delete(id);
+            if (deleteCount > 0)
+                return Ok();
 
             return NoContent();
         }

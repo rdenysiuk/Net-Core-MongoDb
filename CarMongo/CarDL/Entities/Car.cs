@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace CarDL
+namespace CarDL.Entities
 {
     public class Car
     {

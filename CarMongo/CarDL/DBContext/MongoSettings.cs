@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CarDL
+namespace CarDL.DBContext
 {
     public class MongoSettings
     {

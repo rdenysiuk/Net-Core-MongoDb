@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace CarDL
+namespace CarDL.DBContext
 {
     public class MongoCarDbContext : IMongoCarDbContext
     {

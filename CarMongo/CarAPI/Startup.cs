@@ -11,10 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CarBL.Interfaces;
 using CarBL.Services;
-using CarBL.Services.Repository;
-using CarDL;
-using AutoMapper;
-using CarBL.Mapping;
+using CarInfrastructure;
 
 namespace CarAPI
 {
@@ -30,30 +27,14 @@ namespace CarAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.Configure<MongoSettings>(options => {
-                options.Connection = Configuration.GetSection("MongoSettings:Connection").Value;
-                options.DatabaseName = Configuration.GetSection("MongoSettings:DatabaseName").Value;
-             });
+            services.AddControllers();           
             services.AddSwaggerGen();
-
-            services.AddScoped<IMongoCarDbContext, MongoCarDbContext>();
-            services.AddScoped<ICarRepository, CarRepository>();
-            services.AddScoped<ICarService, CarService>();
-
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new DtoToEntity());
-            });
-
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddCarServices(Configuration);            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMapper mapper)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            mapper.ConfigurationProvider.AssertConfigurationIsValid();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

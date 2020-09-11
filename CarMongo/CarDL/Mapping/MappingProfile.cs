@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using CarBL.Models;
-using CarDL;
+using CarDL.Entities;
 
-namespace CarBL.Mapping
+namespace CarDL.Mapping
 {
-    public class DtoToEntity : Profile
+    public class MappingProfile : Profile
     {
-        public DtoToEntity()
+        public MappingProfile()
         {
             CreateMap<Car, CarModel>().ReverseMap();
         }
