@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using MongoDB.Driver;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CarBL.Services;
 using Xunit;
 using Moq;
 using AutoMapper;
 using CarBL.Models;
-using CarDL.Entities;
+using CarBL.Interfaces;
+using CarDL.Mapping;
 
 namespace CarXUnitTest
 {
@@ -23,16 +22,16 @@ namespace CarXUnitTest
         {
             var mapperConfig = new MapperConfiguration(conf =>
             {
-                conf.AddProfile(new DtoToEntity());
+                conf.AddProfile(new MappingProfile());
             });
             _mapper = mapperConfig.CreateMapper();
-            _sut = new CarService(_carRepoMock.Object, _mapper);
+            _sut = new CarService(_carRepoMock.Object);
         }
         [Fact]
         public async Task Get_ShouldReturnCar_WhenExist()
         {
             //Arange
-            var car = new Car(carIdExample, "Skoda", "Skoda", 12000);
+            var car = new CarModel(carIdExample, "Skoda", "Skoda", 12000);
             _carRepoMock.Setup(x => x.Get(carIdExample))
                 .ReturnsAsync(car);
 
@@ -49,7 +48,7 @@ namespace CarXUnitTest
         public async Task Get_ShouldReturnNull_WhenDoNotExist()
         {
             //Arange
-            var car = new Car(carIdExample, "Skoda", "Skoda", 12000);
+            var car = new CarModel(carIdExample, "Skoda", "Skoda", 12000);
             _carRepoMock.Setup(x => x.Get(carIdExample))
                 .ReturnsAsync(car);
 
@@ -64,12 +63,12 @@ namespace CarXUnitTest
         public async Task GetAll_ShouldReturnCars()
         {
             //Arange
-            var carList4 = new List<Car>
+            var carList4 = new List<CarModel>
             {
-                new Car(carIdExample, "Skoda", "Octavia", 9000),
-                new Car(carIdExample, "Skoda", "Superb", 12000),
-                new Car(carIdExample, "Skoda", "Fabia", 5000),
-                new Car(carIdExample, "Skoda", "Karoq", 22000)
+                new CarModel(carIdExample, "Skoda", "Octavia", 9000),
+                new CarModel(carIdExample, "Skoda", "Superb", 12000),
+                new CarModel(carIdExample, "Skoda", "Fabia", 5000),
+                new CarModel(carIdExample, "Skoda", "Karoq", 22000)
             };
             _carRepoMock.Setup(x => x.GetAll())
                 .ReturnsAsync(carList4);
@@ -82,11 +81,11 @@ namespace CarXUnitTest
             Assert.Equal(4, carModelList4.Count);
         }
 
-        //TODO
+        [Fact]
         public async Task New_ShouldReturnCar_AfterAdd()
         {
             //Arange
-            var car = new Car(carIdExample, "Skoda", "Skoda", 12000);
+            var car = new CarModel(carIdExample, "Skoda", "Skoda", 12000);
 
             _carRepoMock.Setup(x => x.New(car))
                 .ReturnsAsync(car.Id);
@@ -99,50 +98,37 @@ namespace CarXUnitTest
             Assert.NotEmpty(carModelId);
             Assert.Equal(carIdExample, carModelId);
         }
-        
-        //TODO
-        /*
-         * Repo method has a filter and update definishion
-         * it can be reason why the test is fails
-         */
+                
+        [Fact]
         public async Task Edit_ShouldReturnEditResult_AfterEdit()
         {
             //Arange
-            var car = new Car(carIdExample, "Skoda", "Skoda", 12000);
-            var updateResultMock = new Mock<UpdateResult>();
-            updateResultMock.Setup(x => x.IsAcknowledged).Returns(true);
-            updateResultMock.Setup(x => x.ModifiedCount).Returns(1);
-
+            var car = new CarModel(carIdExample, "Skoda", "Skoda", 12000);
+            long updatedCountMock = 1;
             _carRepoMock.Setup(x => x.Edit(car))
-                .ReturnsAsync(updateResultMock.Object);
+                .ReturnsAsync(updatedCountMock);
 
             //Act
-            UpdateResult updateResultCar = await _sut.Edit(_mapper.Map<CarModel>(car));
+            var updatedCount = await _sut.Edit(_mapper.Map<CarModel>(car));
 
             //Assert
-            Assert.NotNull(updateResultCar);
-            Assert.True(updateResultCar.IsAcknowledged);
-            Assert.InRange(updateResultCar.ModifiedCount, 1, 2);
+            Assert.InRange(updatedCount, 1, 2);
         }
 
         [Fact]
         public async Task Delete_ShouldReturnDeleteResult_AfterDeleting()
         {
             //Arange
-            var deleteResultMock = new Mock<DeleteResult>();
-            deleteResultMock.Setup(x => x.IsAcknowledged).Returns(true);
-            deleteResultMock.Setup(x => x.DeletedCount).Returns(1);
+            long updatedCountMock = 1;
 
             _carRepoMock.Setup(x => x.Delete(carIdExample))
-                .ReturnsAsync(deleteResultMock.Object);
+                .ReturnsAsync(updatedCountMock);
 
             //Act
-            DeleteResult deleteResultCar = await _sut.Delete(carIdExample);
+            long updatedCount = await _sut.Delete(carIdExample);
 
             //Assert
-            Assert.NotNull(deleteResultCar);
-            Assert.True(deleteResultCar.IsAcknowledged);
-            Assert.InRange(deleteResultCar.DeletedCount, 1, 2);
+            Assert.InRange(updatedCount, 1, 2);
         }
     }
 }
