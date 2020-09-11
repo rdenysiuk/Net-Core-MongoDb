@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarBL", "CarBL\CarBL.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarXUnitTest", "CarXUnitTest\CarXUnitTest.csproj", "{C72B1134-D2C0-4AC8-9FEB-7BF2C8C4B7D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarInfrastructure", "CarInfrastructure\CarInfrastructure.csproj", "{EF11944B-C256-4881-A225-175C127E2B06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarInfrastructure", "CarInfrastructure\CarInfrastructure.csproj", "{EF11944B-C256-4881-A225-175C127E2B06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarXUnitIntegration", "CarXUnitIntegration\CarXUnitIntegration.csproj", "{7F4257F5-163B-44C4-968C-FBACBB21D851}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{EF11944B-C256-4881-A225-175C127E2B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF11944B-C256-4881-A225-175C127E2B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF11944B-C256-4881-A225-175C127E2B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F4257F5-163B-44C4-968C-FBACBB21D851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F4257F5-163B-44C4-968C-FBACBB21D851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F4257F5-163B-44C4-968C-FBACBB21D851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F4257F5-163B-44C4-968C-FBACBB21D851}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
